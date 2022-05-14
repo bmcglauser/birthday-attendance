@@ -16,13 +16,13 @@ app.use(cors());
 
 app.use("/api", router);
 
-if (process.env.NODE_ENV === "production") {
-  console.log("SERVING STATIC");
-  app.use(express.static(path.resolve(__dirname, "build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+console.log("SERVING STATIC");
+app.use(express.static(path.resolve(__dirname, "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build"));
+});
+// }
 
 (async () => {
   db.sequelize.sync().then(() => {
