@@ -1,13 +1,15 @@
-export enum ResponseOption {
-  "DEF_YES",
-  "SOFT_YES",
-  "NO_CLUE",
-  "PROB_NOT",
-  "NO_LOL",
-}
+export type ResponseOption =
+  | "DEF_YES"
+  | "SOFT_YES"
+  | "NO_CLUE"
+  | "PROB_NOT"
+  | "NO_LOL"
+  | "AWAITING";
 
 export type IRespInput = {
-  name: ResponseOption;
-  response: string;
+  name: string;
+  response: ResponseOption;
   number?: string;
 };
+
+export type IRespondent = IRespInput & { id: number };

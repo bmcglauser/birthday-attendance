@@ -15,6 +15,12 @@ exports.getAllRespondents = serverTryCatch(async (req) => {
   return await models.Respondent.findAll();
 }, 200);
 
+exports.getOneRespondent = serverTryCatch(
+  async (req) =>
+    await models.Respondent.findOne({ where: { id: req.params.id } }),
+  200
+);
+
 exports.addRespondent = serverTryCatch(async (req) => {
   return await models.Respondent.create({
     name: req.body.name,
@@ -24,6 +30,7 @@ exports.addRespondent = serverTryCatch(async (req) => {
 }, 201);
 
 exports.updateRespondent = serverTryCatch(async (req) => {
+  if (!req.params.id) throw Error("Invalid id path");
   const resp = await models.Respondent.findOne({
     where: { id: req.params.id },
   });
