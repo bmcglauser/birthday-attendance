@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { delResp } from "../apiService";
 import { IRespondent } from "../types";
-import { SummaryBlock } from "./SummaryBlock";
 
 type HomePageEntryBlockProps = {
   entry: IRespondent;
@@ -20,11 +19,11 @@ export const HomePageEntryBlock: React.FC<HomePageEntryBlockProps> = ({
         <>
           <div className="flex flex-grow flex-col justify-evenly pl-4">
             <p>{entry.name}</p>
-            <p>{entry.response}</p>
+            <p className="pl-4">{entry.response}</p>
           </div>
           <div className="flex gap-4">
             <div
-              className="bg-blue-400 border m-2 border-black w-12 flex items-center justify-center"
+              className="bg-blue-200 rounded-md  m-2 shadow-md w-12 flex items-center justify-center"
               onClick={() => {
                 setIsAuxInfo(true);
               }}
@@ -32,7 +31,7 @@ export const HomePageEntryBlock: React.FC<HomePageEntryBlockProps> = ({
               ?
             </div>
             <div
-              className="bg-red-400 border m-2 border-black w-12 flex items-center justify-center"
+              className="bg-red-200 rounded-md  m-2 shadow-md w-12 flex items-center justify-center"
               onClick={() => {
                 delResp({ id: entry.id }).then(() => {
                   setShouldReload((r) => !r);
@@ -42,7 +41,7 @@ export const HomePageEntryBlock: React.FC<HomePageEntryBlockProps> = ({
               X
             </div>
             <Link style={{ margin: ".5rem" }} to={`/edit/${entry.id}`}>
-              <div className="bg-yellow-400 border h-full border-black w-12 flex items-center justify-center">
+              <div className="bg-yellow-200 rounded-md  h-full shadow-md w-12 flex items-center justify-center">
                 ...
               </div>
             </Link>

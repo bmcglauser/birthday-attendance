@@ -12,7 +12,9 @@ export const AddForm: React.FC<AddFormProps> = ({ addHandler }) => {
 
   return (
     <form className="flex flex-col p-2">
-      <label htmlFor="name">Name:</label>
+      <label className="text-lg" htmlFor="name">
+        Name:
+      </label>
       <input
         className="p-2 text-lg outline-2 outline-purple-400"
         id="name"
@@ -21,8 +23,11 @@ export const AddForm: React.FC<AddFormProps> = ({ addHandler }) => {
         onChange={(e) => setNameInput(e.target.value)}
       />
       <button
-        className="bg-white shadow-lg rounded-sm self-center py-2 px-6 mt-2"
-        onClick={(e) => addHandler(e, nameInput)}
+        className="bg-white shadow-lg text-lg rounded-lg self-center py-2 px-6 mt-2"
+        onClick={(e) => {
+          addHandler(e, nameInput);
+          setNameInput("");
+        }}
         disabled={!nameInput.length}
       >
         Add

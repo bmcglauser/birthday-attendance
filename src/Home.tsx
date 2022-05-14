@@ -1,8 +1,6 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import { delResp, getAllResps, newResp } from "./apiService";
+import { getAllResps, newResp } from "./apiService";
 import { AddForm } from "./components/AddForm";
-import { SummaryBlock } from "./components/SummaryBlock";
 import { HomePageEntryBlock } from "./components/HomePageEntryBlock";
 import { IRespondent, ResponseOption } from "./types";
 
@@ -35,11 +33,13 @@ export const Home = () => {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col gap-2 px-2 bg-purple-100">
+    <div className="h-screen w-screen flex flex-col gap-2 px-2 bg-[#d3d3d3]">
       <AddForm addHandler={addHandler} />
-      {allEntries.map((entry) => (
-        <HomePageEntryBlock setShouldReload={setShouldReload} entry={entry} />
-      ))}
+      {allEntries
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((entry) => (
+          <HomePageEntryBlock setShouldReload={setShouldReload} entry={entry} />
+        ))}
     </div>
   );
 };

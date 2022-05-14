@@ -39,54 +39,75 @@ export const EditPage = () => {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col">
+    <div className="h-screen w-screen flex flex-col bg-[#d3d3d3] items-center">
       {currentEntry ? (
-        <div className="flex flex-col p-4">
-          <div className="flex justify-between">
-            <p>{currentEntry.name}</p>
-            <p>{currentEntry.response}</p>
+        <div className="flex flex-col gap-2 p-4 m-4 bg-white shadow-lg self-stretch">
+          <div className="flex justify-between text-xl">
+            <span>{currentEntry.name}</span>
+            <span>
+              {currentEntry.response[0] +
+                currentEntry.response
+                  .toLowerCase()
+                  .slice(1)
+                  .split("_")
+                  .join(" ")}
+            </span>
           </div>
-          <p>Phone: {currentEntry.number}</p>
           <p>Comments: {currentEntry.comment}</p>
         </div>
       ) : (
         <></>
       )}
-      <div className="flex flex-col p-4">
-        <h2>Edit entry:</h2>
-        <form className="border flex flex-col">
-          <section className="flex flex-col">
-            {[
-              "Def yes",
-              "Soft yes",
-              "No clue",
-              "Prob not",
-              "No lol",
-              "Awaiting",
-            ].map((label, i) => {
-              const forAttr = label.split(" ").join("").toLowerCase();
-              return (
-                <React.Fragment key={`label/${i}`}>
-                  <label htmlFor={forAttr}>{label}</label>
-                  <input
-                    name="response"
-                    id={forAttr}
-                    value={forAttr}
-                    type="radio"
-                    onChange={radioChangeHandler}
-                  />
-                </React.Fragment>
-              );
-            })}
-            <label>Comments:</label>
-            <textarea onChange={commentChangeHandler} />
-          </section>
-          <button onClick={confirmHandler}>Confirm edit</button>
-          <Link className="border border-black border-dotted" to="/">
-            Go back
-          </Link>
-        </form>
-      </div>
+      <form className="flex flex-col items-center mx-4 p-4 py-8 bg-white shadow-lg w-2/3">
+        <section className="flex flex-col items-center gap-4 mb-4">
+          {[
+            ["Def yes", "bg-[#7fff5c]"],
+            ["Soft yes", "bg-[#ceff5c]"],
+            ["No clue", "bg-[#fff15c]"],
+            ["Prob not", "bg-[#ffab5c]"],
+            ["No lol", "bg-[#ff745c]"],
+            ["Awaiting", "bg-[#acacac]"],
+          ].map(([label, color], i) => {
+            const forAttr = label.split(" ").join("").toLowerCase();
+            return (
+              <div
+                className={`flex justify-between w-full items-center ${color} py-1 px-4 rounded-md`}
+                key={`label/${i}`}
+              >
+                <label className="flex-grow" htmlFor={forAttr}>
+                  {label}
+                </label>
+                <input
+                  name="response"
+                  id={forAttr}
+                  value={forAttr}
+                  type="radio"
+                  onChange={radioChangeHandler}
+                />
+              </div>
+            );
+          })}
+          <div className="flex flex-col w-full mt-4">
+            <label>Add comments:</label>
+            <textarea
+              className="border border-black p-2"
+              onChange={commentChangeHandler}
+            />
+          </div>
+        </section>
+        <button
+          className="self-center mt-6 p-4 px-6 rounded-lg border border-black border-dotted w-2/3"
+          onClick={confirmHandler}
+        >
+          Confirm edit
+        </button>
+        <Link
+          className="border mt-4 text-center p-4 px-6 rounded-lg border-black border-dotted w-2/3"
+          to="/"
+        >
+          Go back
+        </Link>
+      </form>
     </div>
   );
 };
