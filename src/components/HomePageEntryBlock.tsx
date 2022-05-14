@@ -36,7 +36,7 @@ export const HomePageEntryBlock: React.FC<HomePageEntryBlockProps> = ({
         </>
       ) : (
         <div
-          className="self-center text-lg w-full flex items-center justify-center"
+          className="self-center text-lg w-full h-full flex items-center justify-center"
           onClick={() => setIsAuxInfo(false)}
         >
           <p>{entry.comment}</p>
