@@ -9,6 +9,7 @@ const transformData = (r: any): IRespondent => {
     name: r.name,
     number: r.number,
     response: r.response,
+    comment: r.comment,
   };
 };
 
@@ -25,7 +26,7 @@ export const getOneResp = async (id: number | string) =>
 
 export const newResp = async ({ name, response, number }: IRespInput) =>
   await axios
-    .post(`${API_URL}/resp`, { name, response, number })
+    .post(`${API_URL}/resp`, { name, response, number, comment: "" })
     .then((res) => res.data);
 
 export const delResp = async ({ id }: { id: number }) =>
@@ -34,10 +35,12 @@ export const delResp = async ({ id }: { id: number }) =>
 export const changeResp = async ({
   id,
   response,
+  comment,
 }: {
   id: number;
   response: ResponseOption;
+  comment: string;
 }) =>
   await axios
-    .put(`${API_URL}/resp/${id}`, { response })
+    .put(`${API_URL}/resp/${id}`, { response, comment })
     .then((res) => res.data);

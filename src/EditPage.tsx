@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { changeResp, getOneResp } from "./apiService";
+import { DisplayEntryInfo } from "./components/DisplayEntryInfo";
 import { IRespondent, ResponseOption } from "./types";
 import { responseOptionDict } from "./utils";
 
 export const EditPage = () => {
   const [currentEntry, setCurrentEntry] = React.useState<IRespondent>();
+  const [commentInput, setCommentInput] = React.useState("");
 
   const [responseInput, setResponseInput] =
     React.useState<ResponseOption>("AWAITING");
@@ -23,6 +25,7 @@ export const EditPage = () => {
     changeResp({
       id: +(id ?? 0),
       response: responseInput,
+      comment: commentInput,
     }).then(() => {
       setResponseInput("AWAITING");
     });
@@ -32,9 +35,20 @@ export const EditPage = () => {
     setResponseInput(responseOptionDict[e.target.value] ?? "AWAITING");
   }
 
+  function commentChangeHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setCommentInput(e.target.value);
+  }
+
   return (
     <div className="h-screen w-screen flex flex-col">
-      {JSON.stringify(currentEntry)}
+      {currentEntry ? (
+        <>
+          <DisplayEntryInfo entry={currentEntry} />
+          <p>Comments: {currentEntry.comment}</p>
+        </>
+      ) : (
+        <></>
+      )}
       <h2>Edit entry:</h2>
       <form className="border flex flex-col">
         <section className="flex flex-col">
@@ -60,6 +74,8 @@ export const EditPage = () => {
               </React.Fragment>
             );
           })}
+          <label>Comments:</label>
+          <textarea onChange={commentChangeHandler} />
         </section>
         <button onClick={confirmHandler}>Confirm edit</button>
       </form>

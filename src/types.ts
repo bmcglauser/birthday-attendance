@@ -10,6 +10,7 @@ export type IRespInput = {
   name: string;
   response: ResponseOption;
   number?: string;
+  comment?: string;
 };
 
 export type IRespondent = IRespInput & { id: number };

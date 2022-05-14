@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    comment: { type: DataTypes.STRING, allowNull: true },
   });
 
   return Respondent;

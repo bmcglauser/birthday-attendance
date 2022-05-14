@@ -37,6 +37,7 @@ exports.updateRespondent = serverTryCatch(async (req) => {
   if (req.body.response) resp.response = req.body.response;
   if (req.body.number) resp.number = req.body.number;
   if (req.body.name) resp.name = req.body.name;
+  if (req.body.comment) resp.comment = req.body.comment;
   await resp.save();
   return resp;
 }, 202);

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { delResp, getAllResps, newResp } from "./apiService";
+import { DisplayEntryInfo } from "./components/DisplayEntryInfo";
 import { IRespondent, ResponseOption } from "./types";
 
 export const Home = () => {
@@ -35,11 +36,7 @@ export const Home = () => {
     <div className="h-screen w-screen flex flex-col">
       {allEntries.map((entry) => (
         <div key={`${entry.id}`} className="flex w-full justify-between p-4">
-          <div className="flex flex-col">
-            <p>Name: {entry.name}</p>
-            <p>Phone: {entry.number}</p>
-            <p>Status: {entry.response}</p>
-          </div>
+          <DisplayEntryInfo entry={entry} />
           <div className="flex gap-4">
             <div
               className="bg-red-400 border border-black w-12"
