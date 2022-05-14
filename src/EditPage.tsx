@@ -68,8 +68,8 @@ export const EditPage = () => {
       ) : (
         <></>
       )}
-      <form className="flex flex-col mx-4 p-4 py-8 bg-white shadow-lg">
-        <section className="flex flex-col items-center gap-4 mb-2 p-2 w-full">
+      <form className="flex flex-col mx-4 p-4 bg-white shadow-lg">
+        <section className="flex flex-col items-center gap-3 w-full">
           {Object.entries(colorResponseMap).map(([response, color], i) => {
             const label =
               response[0] +
