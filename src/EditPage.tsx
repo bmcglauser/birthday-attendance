@@ -19,6 +19,10 @@ export const EditPage = () => {
     });
   }, [id]);
 
+  React.useEffect(() => {
+    currentEntry && setResponseInput(currentEntry?.response);
+  }, [currentEntry]);
+
   function confirmHandler(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     changeResp({
