@@ -65,7 +65,7 @@ export const EditPage = () => {
         <></>
       )}
       <form className="flex flex-col mx-4 p-4 py-8 bg-white shadow-lg">
-        <section className="flex flex-col items-center gap-4 mb-4 p-4 w-full">
+        <section className="flex flex-col items-center gap-4 mb-2 p-2 w-full">
           {Object.entries(colorResponseMap).map(([response, color], i) => {
             const label =
               response[0] +
@@ -100,20 +100,20 @@ export const EditPage = () => {
         </section>
 
         <button
-          className="self-center mt-6 p-4 px-6 rounded-lg border border-black border-dotted w-2/3"
+          className="self-center mt-6 p-2 px-6 rounded-lg border border-black border-dotted w-2/3"
           onClick={confirmHandler}
         >
           Confirm edit
         </button>
         <div className="flex gap-2">
           <Link
-            className="border mt-4 text-center p-4 px-6 rounded-lg border-black border-dotted w-2/3"
+            className="border mt-4 text-center p-2 px-6 rounded-lg border-black border-dotted w-2/3"
             to="/"
           >
             Back
           </Link>
           <button
-            className="border mt-4 text-center p-4 px-6 rounded-lg border-black border-dotted w-2/3"
+            className="border mt-4 text-center p-2 px-6 rounded-lg border-black border-dotted w-2/3"
             onClick={deleteHandler}
           >
             Delete
