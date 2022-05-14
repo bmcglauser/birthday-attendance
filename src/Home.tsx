@@ -33,12 +33,12 @@ export const Home = () => {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col gap-2 px-2 bg-[#d3d3d3]">
+    <div className="h-screen w-screen flex flex-col gap-2 px-2 pb-12 bg-[#d3d3d3]">
       <AddForm addHandler={addHandler} />
       {allEntries
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((entry) => (
-          <HomePageEntryBlock setShouldReload={setShouldReload} entry={entry} />
+          <HomePageEntryBlock entry={entry} />
         ))}
     </div>
   );

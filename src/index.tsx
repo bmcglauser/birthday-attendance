@@ -9,6 +9,7 @@ ReactDOM.render(
   <Router>
     <Routes>
       <Route element={<Home />} path="/" />
+      <Route element={<Home />} path="/home" />
       <Route element={<EditPage />} path="/edit/:id" />
     </Routes>
   </Router>,

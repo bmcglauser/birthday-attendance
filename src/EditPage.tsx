@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Link, useParams } from "react-router-dom";
-import { changeResp, getOneResp } from "./apiService";
-import { SummaryBlock } from "./components/SummaryBlock";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { changeResp, delResp, getOneResp } from "./apiService";
 import { IRespondent, ResponseOption } from "./types";
-import { responseOptionDict } from "./utils";
+import { colorResponseMap, responseOptionDict } from "./utils";
 
 export const EditPage = () => {
   const [currentEntry, setCurrentEntry] = React.useState<IRespondent>();
@@ -12,6 +11,7 @@ export const EditPage = () => {
     React.useState<ResponseOption>("AWAITING");
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     getOneResp(id ?? "").then((resp) => {
@@ -25,9 +25,15 @@ export const EditPage = () => {
       id: +(id ?? 0),
       response: responseInput,
       comment: commentInput,
-    }).then(() => {
+    }).then((_) => {
       setResponseInput("AWAITING");
+      navigate("/");
     });
+  }
+
+  function deleteHandler(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    delResp({ id: currentEntry?.id ?? 0 });
+    navigate("/home");
   }
 
   function radioChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -39,10 +45,10 @@ export const EditPage = () => {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-[#d3d3d3] items-center">
+    <div className="h-screen w-screen flex flex-col text-xl bg-[#d3d3d3]">
       {currentEntry ? (
-        <div className="flex flex-col gap-2 p-4 m-4 bg-white shadow-lg self-stretch">
-          <div className="flex justify-between text-xl">
+        <div className="flex flex-col gap-2 p-4 m-4 bg-white shadow-lg">
+          <div className="flex justify-between">
             <span>{currentEntry.name}</span>
             <span>
               {currentEntry.response[0] +
@@ -58,26 +64,23 @@ export const EditPage = () => {
       ) : (
         <></>
       )}
-      <form className="flex flex-col items-center mx-4 p-4 py-8 bg-white shadow-lg w-2/3">
-        <section className="flex flex-col items-center gap-4 mb-4">
-          {[
-            ["Def yes", "bg-[#7fff5c]"],
-            ["Soft yes", "bg-[#ceff5c]"],
-            ["No clue", "bg-[#fff15c]"],
-            ["Prob not", "bg-[#ffab5c]"],
-            ["No lol", "bg-[#ff745c]"],
-            ["Awaiting", "bg-[#acacac]"],
-          ].map(([label, color], i) => {
-            const forAttr = label.split(" ").join("").toLowerCase();
+      <form className="flex flex-col mx-4 p-4 py-8 bg-white shadow-lg">
+        <section className="flex flex-col items-center gap-4 mb-4 p-4 w-full">
+          {Object.entries(colorResponseMap).map(([response, color], i) => {
+            const label =
+              response[0] +
+              response.toLowerCase().split("_").join(" ").slice(1);
+            const forAttr = label.toLowerCase().split(" ").join("");
             return (
               <div
-                className={`flex justify-between w-full items-center ${color} py-1 px-4 rounded-md`}
+                className={`flex justify-between w-full items-center ${color} py-2 px-8 rounded-md`}
                 key={`label/${i}`}
               >
                 <label className="flex-grow" htmlFor={forAttr}>
                   {label}
                 </label>
                 <input
+                  className="scale-150"
                   name="response"
                   id={forAttr}
                   value={forAttr}
@@ -95,18 +98,27 @@ export const EditPage = () => {
             />
           </div>
         </section>
+
         <button
           className="self-center mt-6 p-4 px-6 rounded-lg border border-black border-dotted w-2/3"
           onClick={confirmHandler}
         >
           Confirm edit
         </button>
-        <Link
-          className="border mt-4 text-center p-4 px-6 rounded-lg border-black border-dotted w-2/3"
-          to="/"
-        >
-          Go back
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            className="border mt-4 text-center p-4 px-6 rounded-lg border-black border-dotted w-2/3"
+            to="/"
+          >
+            Back
+          </Link>
+          <button
+            className="border mt-4 text-center p-4 px-6 rounded-lg border-black border-dotted w-2/3"
+            onClick={deleteHandler}
+          >
+            Delete
+          </button>
+        </div>
       </form>
     </div>
   );
