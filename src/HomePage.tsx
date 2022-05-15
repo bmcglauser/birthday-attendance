@@ -4,7 +4,7 @@ import { AddForm } from "./components/AddForm";
 import { HomePageEntryBlock } from "./components/HomePageEntryBlock";
 import { IRespondent, ResponseOption } from "./types";
 
-export const Home = () => {
+export const HomePage = () => {
   const [allEntries, setAllEntries] = React.useState<IRespondent[]>([]);
 
   const [responseInput, setResponseInput] =
