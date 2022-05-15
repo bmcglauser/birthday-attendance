@@ -29,7 +29,7 @@ export const AddForm: React.FC<AddFormProps> = ({ addHandler }) => {
         <button
           className="bg-white shadow-lg text-lg rounded-lg self-center py-2 px-6 mt-2"
           onClick={(e) => {
-            addHandler(e, nameInput);
+            addHandler(e, nameInput.trim());
             setNameInput("");
           }}
           disabled={!nameInput.length}
